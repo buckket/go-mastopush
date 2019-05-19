@@ -3,7 +3,7 @@ module github.com/buckket/go-mastopush
 go 1.12
 
 require (
-	github.com/buckket/go-mastodon v0.0.4-0.20190519160012-65a8ffe6bde9
+	github.com/buckket/go-mastodon v0.0.4-0.20190519203918-b51a14a673c1
 	github.com/gbrlsnchs/jwt/v3 v3.0.0-beta.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/magiconair/properties v1.8.1 // indirect

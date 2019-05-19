@@ -6,3 +6,7 @@ MASTODON_ACCESS_TOKEN = ""
 MASTODON_URL = "https://mastodon.social"
 
 PUSH_ENDPOINT = "https://example.org/"
+
+GOTIFY_URL = "https://example.org"
+GOTIFY_TOKEN = ""
+
