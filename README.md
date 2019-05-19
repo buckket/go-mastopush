@@ -44,6 +44,7 @@ Here’s the output of the included example project:
 
 - A remotely similar project which forwards notifications (to APN in this case) instead of decrypting them can be found here:
 [https://github.com/DagAgren/toot-relay](https://github.com/DagAgren/toot-relay)
+- Your HTTP handler should resepct [Section 6.2](https://tools.ietf.org/html/rfc8030#section-6.2) when it comes to returning HTTP status codes.
 
 ## License
 
