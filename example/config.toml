@@ -1,0 +1,8 @@
+## MASTODON
+## https://docs.joinmastodon.org/api/authentication/
+MASTODON_CLIENT_ID = ""
+MASTODON_CLIENT_SECRET = ""
+MASTODON_ACCESS_TOKEN = ""
+MASTODON_URL = "https://mastodon.social"
+
+PUSH_ENDPOINT = "https://example.org/"
