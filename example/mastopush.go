@@ -14,8 +14,6 @@ import (
 	"net/url"
 )
 
-var mp *mastopush.MastoPush
-
 type Env struct {
 	mp        *mastopush.MastoPush
 	mapi      *mastodon.Client
@@ -54,8 +52,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	mp = mastopush.NewMastoPush(&mastopush.Config{})
-	if err = mp.GenerateNewKeys(); err != nil {
+	env.mp = mastopush.NewMastoPush(&mastopush.Config{})
+	if err = env.mp.GenerateNewKeys(); err != nil {
 		log.Fatal(err)
 	}
 
@@ -66,13 +64,13 @@ func main() {
 	var alerts = mastodon.PushAlerts{Mention: enabled, Favourite: enabled, Reblog: enabled, Follow: enabled}
 
 	_ = env.mapi.RemovePushSubscription(context.Background())
-	sub, err := env.mapi.AddPushSubscription(context.Background(), endpoint, mp.PrivateKey.PublicKey, mp.SharedSecret, alerts)
+	sub, err := env.mapi.AddPushSubscription(context.Background(), endpoint, env.mp.PrivateKey.PublicKey, env.mp.SharedSecret, alerts)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	log.Printf("Added new push subscription (ID: %s, Endpoint: %s)", sub.ID, sub.Endpoint)
-	if err = mp.ImportServerKey(sub.ServerKey); err != nil {
+	if err = env.mp.ImportServerKey(sub.ServerKey); err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("Mastodon ServerKey: %q", sub.ServerKey)
@@ -96,7 +94,7 @@ func (env *Env) handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
 	}
-	jwtH, jwtP, err := mp.VerifyJWT(token)
+	jwtH, jwtP, err := env.mp.VerifyJWT(token)
 	if err != nil {
 		log.Print(err)
 		return
@@ -107,7 +105,7 @@ func (env *Env) handler(w http.ResponseWriter, r *http.Request) {
 	data, _ := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 
-	payload, err := mp.Decrypt(dh, salt, data)
+	payload, err := env.mp.Decrypt(dh, salt, data)
 	if err != nil {
 		log.Print(err)
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
