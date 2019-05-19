@@ -36,7 +36,8 @@ Here’s the output of the included example project:
 ## Limitations
 
 - Only supports `aesgcm` and not `aes128gcm`. Which is fine, because Mastodon only uses the former.
-  But implementing the later should straight forward as well.
+  But implementing the later should be straight forward as well, as parsing the HTTP request headers is no
+  longer necessary.
 - Documentation is still lacking.
 
 ## Notes
